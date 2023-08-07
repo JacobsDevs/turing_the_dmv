@@ -56,4 +56,15 @@ RSpec.describe Facility do
 		end
 	end
 
+	describe '#issue_plate' do
+		it 'issues a plate_type to car based on engine and antique status' do
+      @facility1.add_service('Vehicle Registration')
+			@facility1.register_vehicle(@cruz)
+			expect(@cruz.plate_type).to eq(:ice)
+			@facility1.register_vehicle(@camaro)
+			expect(@camaro.plate_type).to eq(:antique)
+			@facility1.register_vehicle(@bolt)
+			expect(@bolt.plate_type).to eq(:ev)
+		end
+	end
 end

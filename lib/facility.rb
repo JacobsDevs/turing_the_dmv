@@ -11,8 +11,8 @@ class Facility
     @address = facility_information[:address]
     @phone = facility_information[:phone]
     @services = []
-		@registered_vehicles = []
-		@collected_fees = 0
+    @registered_vehicles = []
+    @collected_fees = 0
   end
 
   def add_service(service)
@@ -21,13 +21,14 @@ class Facility
 
   def register_vehicle(vehicle)
     return unless @services.include?('Vehicle Registration')
-		@collected_fees += collect_fee(vehicle)
+
+    @collected_fees += collect_fee(vehicle)
     @registered_vehicles << vehicle
   end
-	
+
   def collect_fee(vehicle)
     return 25 if vehicle.antique?
-		return 100 if vehicle.engine == :ice
-		return 200 if vehicle.engine == :ev
+    return 100 if vehicle.engine == :ice
+    return 200 if vehicle.engine == :ev
   end
 end
