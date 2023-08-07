@@ -32,4 +32,11 @@ RSpec.describe Registrant do
 			expect(@registrant_2.permit?).to eq(true)
 		end
 	end
+
+	describe '#eligible_for_permit?' do
+    it 'returns true or false based on applicant age' do
+			expect(@registrant_1.eligible_for_permit?).to eq(true)
+			expect(@registrant_2.eligible_for_permit?).to eq(false)
+		end
+	end
 end
