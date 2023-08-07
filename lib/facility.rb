@@ -24,11 +24,17 @@ class Facility
 
     @collected_fees += collect_fee(vehicle)
     @registered_vehicles << vehicle
+		vehicle.plate_type = issue_plate(vehicle)
   end
 
   def collect_fee(vehicle)
     return 25 if vehicle.antique?
-    return 100 if vehicle.engine == :ice
-    return 200 if vehicle.engine == :ev
+    vehicle.electric_vehicle? ? 200 : 100
   end
+
+	def issue_plate(vehicle)
+    return :antique if vehicle.antique?
+    return vehicle.electric_vehicle? ? :ev : :ice 
+	end
+    
 end
