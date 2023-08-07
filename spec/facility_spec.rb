@@ -36,5 +36,9 @@ RSpec.describe Facility do
       @facility1.register_vehicle(@cruz)
       expect(@facility1.registered_vehicles).to eq([@cruz])
     end
+    it 'can not register at a facility without "Vehicle Registration" service' do
+		  @facility2.register_vehicle(@cruz)
+			expect(@facility2.registered_vehicles).to eq([])
+		end
   end
 end

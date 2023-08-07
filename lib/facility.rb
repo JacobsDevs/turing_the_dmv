@@ -20,6 +20,8 @@ class Facility
   end
 
   def register_vehicle(vehicle)
+    return unless @services.include?('Vehicle Registration')
+
 		@registered_vehicles << vehicle
   end
 end
