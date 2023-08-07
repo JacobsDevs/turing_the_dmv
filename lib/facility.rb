@@ -34,7 +34,7 @@ class Facility
 
 	def issue_plate(vehicle)
     return :antique if vehicle.antique?
-    return vehicle.electric_vehicle? ? :ev : :ice 
+    return vehicle.electric_vehicle? ? :ev : :ice
 	end
     
 end
