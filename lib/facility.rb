@@ -21,7 +21,13 @@ class Facility
 
   def register_vehicle(vehicle)
     return unless @services.include?('Vehicle Registration')
+		@collected_fees += collect_fee(vehicle)
     @registered_vehicles << vehicle
   end
 	
+  def collect_fee(vehicle)
+    return 25 if vehicle.antique?
+		return 100 if vehicle.engine == :ice
+		return 200 if vehicle.engine == :ev
+  end
 end
