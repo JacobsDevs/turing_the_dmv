@@ -37,8 +37,23 @@ RSpec.describe Facility do
       expect(@facility1.registered_vehicles).to eq([@cruz])
     end
     it 'can not register at a facility without "Vehicle Registration" service' do
-		  @facility2.register_vehicle(@cruz)
-			expect(@facility2.registered_vehicles).to eq([])
-		end
+      @facility2.register_vehicle(@cruz)
+      expect(@facility2.registered_vehicles).to eq([])
+    end
   end
+
+	describe '#collect_fee' do
+	  it 'charges the correct fee for the registered vehicle' do
+		  @facility1.add_service('Vehicle Registration')
+			@facility1.register_vehicle(@cruz)
+			expect(@facility1.collected_fees).to eq(100)
+			
+			@facility1.register_vehicle(@camaro)
+			expect(@facility1.collected_fees).to eq(125)
+			
+			@facility1.register_vehicle(@bolt)
+			expect(@facility1.collected_fees).to eq(325)
+		end
+	end
+
 end
