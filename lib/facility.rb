@@ -40,7 +40,8 @@ class Facility
   end
 
   def administer_written_test(registrant)
-    return false unless @services.include?('Written Test')
+    p registrant
+		return false unless @services.include?('Written Test') && registrant.permit? == true
 
     registrant.license_data[:written] = registrant.eligible_for_permit?
   end

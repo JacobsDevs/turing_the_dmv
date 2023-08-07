@@ -85,5 +85,11 @@ RSpec.describe Facility do
 			expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
 			expect(@registrant_1.license_data[:written]).to eq(false)
 		end
+    it 'can not issue test at valid facility if registrant has no permit' do
+		  @registrant_1 = Registrant.new('Tucker', 25, false)
+			@facility_1.add_service('Written Test')
+			expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+			expect(@registrant_1.license_data[:written]).to eq(false)
+		end
 	end
 end
