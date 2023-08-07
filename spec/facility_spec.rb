@@ -70,19 +70,19 @@ RSpec.describe Facility do
   describe '#administer_written_test' do
     it 'can not issue test at facility missing service "Written Test"' do
 		  @registrant_1 = Registrant.new('Bruce', 18, true)
-			expect(@facility_1.administer_written_test(@registrant_1).to eq(false))
+			expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
 			expect(@registrant_1.license_data[:written]).to eq(false)
 		end
 		it 'issues test at valid facility' do
 		  @registrant_1 = Registrant.new('Bruce', 18, true)
 			@facility_1.add_service('Written Test')
-			expect(@facility_1.administer_written_test(@registrant_1).to eq(true))
-			expect(@registrant_1.license_data[:written]).to eq(true)			
+			expect(@facility_1.administer_written_test(@registrant_1)).to eq(true)
+			expect(@registrant_1.license_data[:written]).to eq(true)
 		end
 		it 'can not issue test at valid facility with registrant under age 16' do
 			@registrant_1 = Registrant.new('Tucker', 15)
 			@facility_1.add_service('Written Test')
-			expect(@facility_1.administer_written_test(@registrant_1).to eq(true))
+			expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
 			expect(@registrant_1.license_data[:written]).to eq(false)
 		end
 	end

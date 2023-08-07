@@ -24,17 +24,24 @@ class Facility
 
     @collected_fees += collect_fee(vehicle)
     @registered_vehicles << vehicle
-		vehicle.plate_type = issue_plate(vehicle)
+    vehicle.plate_type = issue_plate(vehicle)
   end
 
   def collect_fee(vehicle)
     return 25 if vehicle.antique?
+
     vehicle.electric_vehicle? ? 200 : 100
   end
 
-	def issue_plate(vehicle)
+  def issue_plate(vehicle)
     return :antique if vehicle.antique?
-    return vehicle.electric_vehicle? ? :ev : :ice
-	end
-    
+
+    vehicle.electric_vehicle? ? :ev : :ice
+  end
+
+  def administer_written_test(registrant)
+    return false unless @services.include?('Written Test')
+
+    registrant.license_data[:written] = registrant.eligible_for_permit?
+  end
 end
