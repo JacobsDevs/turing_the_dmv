@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe VehicleFactory
+RSpec.describe VehicleFactory do
   describe '#initialize' do
 	  it 'can initialize' do
 		  factory = VehicleFactory.new
