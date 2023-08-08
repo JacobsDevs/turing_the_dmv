@@ -92,4 +92,26 @@ RSpec.describe Facility do
 			expect(@registrant_1.license_data[:written]).to eq(false)
 		end
 	end
+
+	describe '#administer_road_test' do
+    before(:each) do
+			@registrant_1 = Registrant.new('Bruce', 18, true)
+			@facility_1.add_service('Written Test')
+		end
+		it 'can not issue test at facility missing service "Road Test"' do
+			expect(@facility_1.administer_road_test(@registrant_1)).to eq(false)
+			expect(@registrant_1.license_data[:license]).to eq(false)
+		end
+		it 'issues test at valid facility' do
+			@facility_1.administer_written_test(@registrant_1)
+			@facility_1.add_service('Road Test')
+			expect(@facility_1.administer_road_test(@registrant_1)).to eq(true)
+			expect(@registrant_1.license_data[:license]).to eq(true)
+		end
+    it 'can not issue test at valid facility if registrant has not passed a written test' do
+			@facility_1.add_service('Road Test')
+			expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+			expect(@registrant_1.license_data[:license]).to eq(false)
+		end
+	end
 end
