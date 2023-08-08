@@ -44,4 +44,10 @@ class Facility
 
     registrant.license_data[:written] = registrant.eligible_for_permit?
   end
+
+	def administer_road_test(registrant)
+	  return false unless @services.include?('Road Test') && registrant.license_data[:written]
+
+		registrant.license_data[:license] = true
+	end
 end

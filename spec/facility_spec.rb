@@ -110,7 +110,7 @@ RSpec.describe Facility do
 		end
     it 'can not issue test at valid facility if registrant has not passed a written test' do
 			@facility_1.add_service('Road Test')
-			expect(@facility_1.administer_written_test(@registrant_1)).to eq(false)
+			expect(@facility_1.administer_road_test(@registrant_1)).to eq(false)
 			expect(@registrant_1.license_data[:license]).to eq(false)
 		end
 	end
