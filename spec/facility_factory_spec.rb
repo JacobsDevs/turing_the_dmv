@@ -28,7 +28,7 @@ RSpec.describe FacilityFactory do
 	end
 	describe '#format_name' do
 		it 'returns a formatted name for use with the Facility class' do
-		  expect(@factory.format_name())
+		  expect(@factory.format_name(@dirty_data)).to eq("DMV Tremont Branch")
 		end
 	end
 	describe '#format_services' do

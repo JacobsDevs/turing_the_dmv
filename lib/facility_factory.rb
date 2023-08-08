@@ -16,4 +16,8 @@ class FacilityFactory
     data[:services] = format_services(data)
 		return data
 	end
+
+	def format_name(data)
+	  name = data[:dmv_office]
+	end
 end
