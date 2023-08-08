@@ -8,6 +8,8 @@ RSpec.describe FacilityFactory do
 		it 'can initialize' do
 			expect(factory).to be_an_instance_of(FacilityFactory)
 		end
+		it 'initializes with an empty list of factories' do
+		  expect(factory.factory_list).to eq([])
+	  end
 	end
-
 end
