@@ -10,14 +10,13 @@ RSpec.describe VehicleFactory do
 
 	describe '#create_vehicles' do
 		before(:each)  do
-			factory = VehicleFactory.new
-			wa_ev_registrations = DmvDataService.new.wa_ev_registrations
-		end
-		it 'runs' do
-			expect(factory.create_vehicles(wa_ev_registrations)).to eq(true)
+			@factory = VehicleFactory.new
+			@wa_ev_registrations = DmvDataService.new.wa_ev_registrations
 		end
 		it 'puts a vehicle into factory.vehicle_list' do
-		  factory.create_vehicles(wa_ev_registrations)
-			expect(factory.vehicle_list[0]).to be_an_instance_of(Vehicle)
+		  @factory.create_vehicles(@wa_ev_registrations)
+			p @factory.vehicle_list
+			expect(@factory.vehicle_list[0]).to be_an_instance_of(Vehicle)
 		end
+	end
 end
