@@ -4,7 +4,9 @@ RSpec.describe FacilityFactory do
   before(:each) do
 	  @factory = FacilityFactory.new
 		@colorado_facilities = DmvDataService.new.co_dmv_office_locations
-		@dirty_data = {dmv_office: "DMV Tremont Branch", services_p: "vehicle titles, registration, renewals; VIN inspections"}
+		@dirty_data = {dmv_office: "DMV Tremont Branch", services_p: "vehicle titles, registration, renewals; VIN inspections", phone: "758-000"}
+	  @clean_data = {name: "DMV Tremont Branch", services: ["vehicle titles", "Vehicle Registration", "renewals; VIN inspections"], phone: "758-000"}
+	  @facility = Facility.new(@clean_data)
 	end
 	describe '#initialize' do
 		it 'can initialize' do
@@ -22,8 +24,8 @@ RSpec.describe FacilityFactory do
 	end
 	describe '#format_data' do
 	  it 'returns formatted data for use with the Facility class' do
-		  @factory.format_data(@dirty_data)
-			expect()
+			  data = @factory.format_data(@dirty_data)
+			expect(Facility.new(data)).to eq(@facility)
 		end
 	end
 	describe '#format_name' do
