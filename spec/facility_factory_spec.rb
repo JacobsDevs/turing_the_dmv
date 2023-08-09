@@ -21,8 +21,10 @@ RSpec.describe FacilityFactory do
 		  @factory.create_facilities(@colorado_facilities)
 			expect(@factory.facility_list[0]).to be_an_instance_of Facility
 		end
-		xit 'returns a list of facility objects for NY facilities' do
+		it 'returns a list of facility objects for NY facilities' do
+			p @new_york_facilities[2]
 		  @factory.create_facilities(@new_york_facilities)
+			p @factory.facility_list
 			expect(@factory.facility_list[0]).to be_an_instance_of Facility
 		end
 	end
@@ -49,18 +51,27 @@ RSpec.describe FacilityFactory do
 	end
 	describe '#format_address' do
 		# an optional address element is denoted by *element
-		it 'returns data in the format "#### Street, *Suite ###, *Location, City, STATE, zip"' do
+		it 'returns data in the format "#### Street, *Suite ###, *Location, City, STATE, zip" for CO' do
 		  expect(@factory.format_address(@test_object_colorado)).to eq("2855 Tremont Place, Suite 118, Denver, CO, 80205")
+	  end
+		it 'returns data in the format "#### Street, *Suite ###, *Location, City, STATE, zip" for NY' do
+		  expect(@factory.format_address(@test_object_new_york)).to eq("168-46 91st Ave., 2nd Flr, Jamaica, NY, 11432")
 	  end
 	end
 	describe '#format_phone' do
-		it 'returns data in the format "(###) ###-####"' do
+		it 'returns data in the format "(###) ###-####" for CO' do
 			expect(@factory.format_phone(@test_object_colorado)).to eq("(720) 865-4600")
+		end
+		it 'returns data in the format "(###) ###-####" for NY' do
+		  expect(@factory.format_phone(@test_object_new_york)).to eq("(718) 966-6155")
 		end
 	end
 	describe '#format_services' do
-		it 'returns an array with valid services' do
+		it 'returns an array with valid services for CO' do
 			expect(@factory.format_services(@test_object_colorado)).to eq(["Vehicle Titles", "Vehicle Registration", "Renew License", "VIN inspections"])
+		end
+		it 'returns an array with valid services for NY' do
+			expect(@factory.format_services(@test_object_new_york)).to eq([])
 		end
 	end
 end

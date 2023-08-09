@@ -30,24 +30,37 @@ class FacilityFactory
 	end
 
 	def titlecase(string)
+		return if string.nil?
+
 	  string.split(" ").map {|word| word.downcase.capitalize.chomp}.join(" ")
 	end
 
 	def format_address(data)
-    data[:address_li] + ", " + 
-		(data[:address__1].nil? ? "" : data[:address__1] + ", ") +
-		(data[:location].nil? ? "" : data[:location] + ", ") + 
-		data[:city] + ", " + 
-		data[:state] + ", " + 
-		data[:zip]
+    address_validator(data[:address_li]) +
+		address_validator(titlecase(data[:street_address_line_1])) +
+		address_validator(data[:address__1]) +
+		address_validator(data[:location]) + 
+		address_validator(titlecase(data[:city])) + 
+		address_validator(data[:state]).upcase + 
+		address_validator(data[:zip]).chomp(", ") + 
+		address_validator(data[:zip_code]).chomp(", ")
+	end
+
+	def address_validator(address)
+	  address.nil? ? "" : address + ", "
 	end
 
 	def format_phone(data)
-		raw = data[:phone].gsub(/\D/, '')
+		return "" if data[:public_phone_number].nil? && data[:phone].nil?
+
+		raw = data[:phone].gsub(/\D/, '') if data[:state] == "CO"
+		raw = data[:public_phone_number] if data[:state] == "NY"
 		number = "(#{raw[0..2]}) #{raw[3..5]}-#{raw[6..9]}"
 	end
 
 	def format_services(data)
+		return [] if data[:services_p].nil? 
+
 		services = data[:services_p].split(/[,;]/).map do |service|
 			service.strip!
 			if service == "vehicle titles"
