@@ -1,17 +1,16 @@
 require 'facility'
 
 class FacilityFactory
-  attr_reader :factory_list
+  attr_reader :facility_list
 
 	def initialize
-	  @factory_list = []
+	  @facility_list = []
 	end
 
 	def create_facilities(dataset)
 		dataset.each do |data|
-			data = format_data(data)
+			@facility_list << Facility.new(format_data(data))
 		end
-		dataset
 	end
 
 	def format_data(data)
@@ -19,10 +18,19 @@ class FacilityFactory
 		data[:address] = format_address(data)
 		data[:services] = format_services(data)
 		data[:phone] = format_phone(data)
+		return data
 	end
 
 	def format_name(data)
-	  data[:dmv_office] + ", " + data[:state]
+	  if data[:state] == "CO"
+		  data[:dmv_office] + ", " + data[:state]
+		elsif data[:state] == "NY"
+			"DMV #{titlecase(data[:office_name])} #{titlecase(data[:office_type])}, #{data[:state]}" if data[:state] == "NY"
+		end
+	end
+
+	def titlecase(string)
+	  string.split(" ").map {|word| word.downcase.capitalize.chomp}.join(" ")
 	end
 
 	def format_address(data)
