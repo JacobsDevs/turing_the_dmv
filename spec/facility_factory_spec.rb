@@ -15,13 +15,12 @@ RSpec.describe FacilityFactory do
 	  end
 	end
 	describe '#create_facilities' do
-		it 'read data from data set and sends it to #format_data'
+		it ''
 	end
 	describe '#format_data' do
-		it 'sends data to #format_name'
-		it 'sends data to #format_address'
-		it 'sends data to #format_phone'
-		it 'sends data to #format_services'
+		it 'returns a hash with valid :name, :address & :services for use with #create_facilities' do
+			formatted = @factory.create_facilities(@colorado_facilities)
+		end
 	end
 	describe '#format_name' do
 		it 'returns string in the format "DMV *LOCATION*, *STATE*"' do

@@ -20,10 +20,15 @@ class FacilityFactory
 	end
 
 	def format_name(data)
-	  string = data[:dmv_office] + ", " + data[:state]
+	  data[:dmv_office] + ", " + data[:state]
 	end
 
 	def format_address(data)
-		string = data[:address_li] + ", " + data[:address__1] + ", " + data[:city] + ", " + data[:state] + ", " + data[:zip]
+    data[:address_li] + ", " + 
+		(data[:address__1].nil? ? "" : data[:address__1] + ", ") +
+		(data[:location].nil? ? "" : data[:location] + ", ") + 
+		data[:city] + ", " + 
+		data[:state] + ", " + 
+		data[:zip]
 	end
 end
