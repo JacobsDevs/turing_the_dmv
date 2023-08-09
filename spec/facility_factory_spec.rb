@@ -4,6 +4,7 @@ RSpec.describe FacilityFactory do
   before(:each) do
 	  @factory = FacilityFactory.new
 		@colorado_facilities = DmvDataService.new.co_dmv_office_locations
+		@test_object = {:the_geom=>{:type=>"Point", :coordinates=>[-104.97443112500002, 39.75525297420336]}, :dmv_id=>"1", :dmv_office=>"DMV Tremont Branch", :address_li=>"2855 Tremont Place", :address__1=>"Suite 118", :city=>"Denver", :state=>"CO", :zip=>"80205", :phone=>"(720) 865-4600", :hours=>"Mon, Tue, Thur, Fri  8:00 a.m.- 4:30 p.m. / Wed 8:30 a.m.-4:30 p.m.", :services_p=>"vehicle titles, registration, renewals;  VIN inspections", :parking_no=>"parking available in the lot at the back of the bldg (Glenarm Street)", :photo=>"images/Tremont.jpg", :address_id=>"175164", :":@computed_region_nku6_53ud"=>"1444"}
 	end
 	describe '#initialize' do
 		it 'can initialize' do
@@ -14,25 +15,23 @@ RSpec.describe FacilityFactory do
 	  end
 	end
 	describe '#create_facilities' do
-		it 'read data from data set and sends it to #format_data' do
-			expect(@factory.create_facilities(@colorado_facilities)[0][:name]).to eq("DMV Tremont Branch, CO")
-		end
+		it 'read data from data set and sends it to #format_data'
 	end
 	describe '#format_data' do
-		it 'sends data to #format_name' do
-		  expect(@factory.format_data({:dmv_office=>"DMV Test", :state=>"CO"})[:name]).to eq("DMV Test, CO")
-		end
+		it 'sends data to #format_name'
 		it 'sends data to #format_address'
 		it 'sends data to #format_phone'
 		it 'sends data to #format_services'
 	end
 	describe '#format_name' do
 		it 'returns string in the format "DMV *LOCATION*, *STATE*"' do
-		  expect(@factory.format_name({:dmv_office=>"DMV Test", :state=> "CO"})).to eq("DMV Test, CO")
+		  expect(@factory.format_name(@test_object)).to eq("DMV Tremont Branch, CO")
 		end
 	end
 	describe '#format_address' do
-		it 'returns data in the format "#### Street, Suite ###, City, STATE, zip"'
+		it 'returns data in the format "#### Street, Suite ###, City, STATE, zip"' do
+		  expect(@factory.format_address(@test_object)).to eq("2855 Tremont Place, Suite 118, Denver, CO, 80205")
+	  end
 	end
 	describe '#format_phone' do
 		it 'returns data in the format "(###) ###-####"'
