@@ -17,6 +17,7 @@ class FacilityFactory
 	def format_data(data)
 		data[:name] = format_name(data)
 		data[:address] = format_address(data)
+		data[:services] = format_services(data)
 	end
 
 	def format_name(data)
@@ -30,5 +31,20 @@ class FacilityFactory
 		data[:city] + ", " + 
 		data[:state] + ", " + 
 		data[:zip]
+	end
+
+	def format_services(data)
+		services = data[:services_p].split(/[,;]/).map do |service|
+			service.strip!
+			if service == "vehicle titles"
+				"Vehicle Titles"
+			elsif service == "registration"
+				"Vehicle Registration"
+			elsif service == "renewals"
+				"Renew License"
+			else service
+			end
+		end
+		return services
 	end
 end

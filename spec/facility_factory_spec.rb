@@ -20,6 +20,9 @@ RSpec.describe FacilityFactory do
 	describe '#format_data' do
 		it 'returns a hash with valid :name, :address & :services for use with #create_facilities' do
 			formatted = @factory.create_facilities(@colorado_facilities)
+			expect(formatted[0][:name]).to eq("DMV Tremont Branch, CO")
+			expect(formatted[4][:address]).to eq("2243 S Monaco Street Pkwy, Villa Monaco, Denver, CO, 80222")
+			expect(formatted[0][:services]).to eq(["Vehicle Titles", "Vehicle Registration", "Renew License", "VIN inspections"])
 		end
 	end
 	describe '#format_name' do
@@ -28,7 +31,8 @@ RSpec.describe FacilityFactory do
 		end
 	end
 	describe '#format_address' do
-		it 'returns data in the format "#### Street, Suite ###, City, STATE, zip"' do
+		# an optional address element is denoted by *element
+		it 'returns data in the format "#### Street, *Suite ###, *Location, City, STATE, zip"' do
 		  expect(@factory.format_address(@test_object)).to eq("2855 Tremont Place, Suite 118, Denver, CO, 80205")
 	  end
 	end
@@ -36,6 +40,8 @@ RSpec.describe FacilityFactory do
 		it 'returns data in the format "(###) ###-####"'
 	end
 	describe '#format_services' do
-		it 'returns an array with valid services'
+		it 'returns an array with valid services' do
+			expect(@factory.format_services(@test_object)).to eq(["Vehicle Titles", "Vehicle Registration", "Renew License", "VIN inspections"])
+		end
 	end
 end
