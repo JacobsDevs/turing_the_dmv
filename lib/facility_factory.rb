@@ -26,6 +26,8 @@ class FacilityFactory
 		  data[:dmv_office] + ", " + data[:state]
 		elsif data[:state] == "NY"
 			"DMV #{titlecase(data[:office_name])} #{titlecase(data[:office_type])}, #{data[:state]}" if data[:state] == "NY"
+		elsif data[:state] == "MO"
+			"DMV #{titlecase(data[:name])} Branch, #{data[:state]}"
 		end
 	end
 
