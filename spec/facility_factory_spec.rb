@@ -39,6 +39,7 @@ RSpec.describe FacilityFactory do
 	describe '#format_phone' do
 		it 'returns data in the format "(###) ###-####"' do
 			expect(@factory.format_phone(@test_object)).to eq("(720) 865-4600")
+		end
 	end
 	describe '#format_services' do
 		it 'returns an array with valid services' do

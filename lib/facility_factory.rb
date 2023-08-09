@@ -34,6 +34,11 @@ class FacilityFactory
 		data[:zip]
 	end
 
+	def format_phone(data)
+		raw = data[:phone].gsub(/\D/, '')
+		number = "(#{raw[0..2]}) #{raw[3..5]}-#{raw[6..9]}"
+	end
+
 	def format_services(data)
 		services = data[:services_p].split(/[,;]/).map do |service|
 			service.strip!
