@@ -40,11 +40,13 @@ class FacilityFactory
 	def format_address(data)
     address_validator(data[:address_li]) +
 		address_validator(titlecase(data[:street_address_line_1])) +
+		address_validator(titlecase(data[:address1])) +
 		address_validator(data[:address__1]) +
 		address_validator(data[:location]) + 
-		address_validator(titlecase(data[:city])) + 
+		address_validator(titlecase(titlecase(data[:city]))) + 
 		address_validator(data[:state]).upcase + 
-		address_validator(data[:zip]).chomp(", ") + 
+		address_validator(data[:zip]).chomp(", ") +
+		address_validator(data[:zipcode]).chomp(", ") +
 		address_validator(data[:zip_code]).chomp(", ")
 	end
 
@@ -55,7 +57,7 @@ class FacilityFactory
 	def format_phone(data)
 		return "" if data[:public_phone_number].nil? && data[:phone].nil?
 
-		raw = data[:phone].gsub(/\D/, '') if data[:state] == "CO"
+		raw = data[:phone].gsub(/\D/, '') if data[:state] == "CO" || data[:state] == "MO"
 		raw = data[:public_phone_number] if data[:state] == "NY"
 		number = "(#{raw[0..2]}) #{raw[3..5]}-#{raw[6..9]}"
 	end
