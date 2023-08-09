@@ -18,6 +18,7 @@ class FacilityFactory
 		data[:name] = format_name(data)
 		data[:address] = format_address(data)
 		data[:services] = format_services(data)
+		data[:phone] = format_phone(data)
 	end
 
 	def format_name(data)
